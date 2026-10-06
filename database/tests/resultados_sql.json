@@ -1,0 +1,437 @@
+[
+  {
+    "prueba": "schema.sql se ejecuta y es idempotente (2 ejecuciones)",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "5 roles aceptados por el CHECK de profiles",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "rol inválido rechazado",
+    "aprobada": true,
+    "detalle": "-> insert or update on table \"profiles\" violates foreign key constraint \"profiles_id_fkey\""
+  },
+  {
+    "prueba": "usuario EMPRESA sin empresa rechazado",
+    "aprobada": true,
+    "detalle": "-> new row for relation \"profiles\" violates check constraint \"profiles_empresa_rol_check\""
+  },
+  {
+    "prueba": "roles_permisos coincide EXACTAMENTE con rbac_matrix.json (usada por el backend)",
+    "aprobada": true,
+    "detalle": "(23 pares)"
+  },
+  {
+    "prueba": "roles y permisos sembrados",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "tiene_permiso: ADMIN tiene tarifas:gestionar",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "tiene_permiso: PROFESOR NO tiene pagos:gestionar",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "authenticated no puede alterar roles_permisos",
+    "aprobada": true,
+    "detalle": "-> permission denied for table roles_permisos"
+  },
+  {
+    "prueba": "ADMIN crea pago",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "monto <= 0 rechazado",
+    "aprobada": true,
+    "detalle": "-> new row for relation \"pagos\" violates check constraint \"pagos_monto_check\""
+  },
+  {
+    "prueba": "PAGADO sin fecha_pago rechazado",
+    "aprobada": true,
+    "detalle": "-> new row for relation \"pagos\" violates check constraint \"pagos_pagado_check\""
+  },
+  {
+    "prueba": "pagador EMPRESA sin empresa_id rechazado",
+    "aprobada": true,
+    "detalle": "-> new row for relation \"pagos\" violates check constraint \"pagos_empresa_check\""
+  },
+  {
+    "prueba": "DELETE de pagos afecta 0 filas (sin policy de DELETE)",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "PROFESOR ve sus pagos",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "OTRO profesor NO ve pagos ajenos",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "ESTUDIANTE NO ve pagos",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "MARKETING NO ve pagos",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "ESTUDIANTE no puede insertar pagos",
+    "aprobada": true,
+    "detalle": "-> new row violates row-level security policy for table \"pagos\""
+  },
+  {
+    "prueba": "EMPRESA crea pago de su empresa",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "EMPRESA no puede pagar a nombre de otra empresa",
+    "aprobada": true,
+    "detalle": "-> new row violates row-level security policy for table \"pagos\""
+  },
+  {
+    "prueba": "EMPRESA solo ve pagos de su empresa",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "EMPRESA no puede actualizar pagos (0 filas afectadas)",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "EMPRESA adjunta comprobante a SU pago (función)",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "EMPRESA no adjunta a pago ajeno",
+    "aprobada": true,
+    "detalle": "-> Sin permisos sobre este pago"
+  },
+  {
+    "prueba": "Docente ve comprobantes de sus pagos (ambos pagos son suyos)",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "Otro docente no ve comprobantes ajenos",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "Empresa solo ve comprobante de su pago",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "Estudiante no ve comprobantes",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "signUp crea el perfil con full_name, country (normalizado) y rol ESTUDIANTE",
+    "aprobada": true,
+    "detalle": "-> ('Ana María Pérez', 'ESTUDIANTE', 'ACTIVO', 'MX')"
+  },
+  {
+    "prueba": "metadatos del cliente no pueden elevar el rol; HTML y país inválido se neutralizan",
+    "aprobada": true,
+    "detalle": "-> ('bEve/b X', 'ESTUDIANTE', None)"
+  },
+  {
+    "prueba": "sin nombre usa el prefijo del correo; GLOBAL es válido",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "país GLOBAL aceptado",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "CHECK de country rechaza valores libres",
+    "aprobada": true,
+    "detalle": "-> new row for relation \"profiles\" violates check constraint \"profiles_country_check\""
+  },
+  {
+    "prueba": "catálogo lista curso+docente y marca el curso ya matriculado",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "PROFESOR no puede ver el catálogo de matrícula",
+    "aprobada": true,
+    "detalle": "-> Sin permiso matriculas:autogestionar"
+  },
+  {
+    "prueba": "PROFESOR no puede matricular",
+    "aprobada": true,
+    "detalle": "-> Sin permiso matriculas:autogestionar"
+  },
+  {
+    "prueba": "insert directo en enrollments denegado al estudiante",
+    "aprobada": true,
+    "detalle": "-> new row violates row-level security policy for table \"enrollments\""
+  },
+  {
+    "prueba": "método de pago no permitido",
+    "aprobada": true,
+    "detalle": "-> Método de pago no permitido"
+  },
+  {
+    "prueba": "docente que no dicta el curso rechazado",
+    "aprobada": true,
+    "detalle": "-> El docente no dicta este curso"
+  },
+  {
+    "prueba": "curso inexistente rechazado",
+    "aprobada": true,
+    "detalle": "-> Curso no disponible"
+  },
+  {
+    "prueba": "matrícula con pago simulado devuelve referencia SIM-, monto del curso y nombre",
+    "aprobada": true,
+    "detalle": "-> ('SIM-E0AF0AE5C4', Decimal('119.50'), 'TOEFL')"
+  },
+  {
+    "prueba": "matrícula duplicada rechazada",
+    "aprobada": true,
+    "detalle": "-> Ya estás matriculado en este curso"
+  },
+  {
+    "prueba": "enrollments guarda docente elegido, estado ACTIVA, monto y método",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "vista matriculas muestra las matrículas del estudiante (RLS)",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "nombres_docentes_matricula devuelve los docentes de mis cursos",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "docente elegido (prof2) ve la matrícula del curso 2",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "otro docente no ve la matrícula del curso 2 pero sí la del curso 1 (sin docente elegido)",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "MARKETING no ve matrículas",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "la matrícula quedó auditada (MATRICULA_AUTOGESTIONADA)",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "una matrícula RETIRADA puede reactivarse con progreso 0",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "PROFESOR no puede definir tarifas",
+    "aprobada": true,
+    "detalle": "-> Sin permiso tarifas:gestionar"
+  },
+  {
+    "prueba": "PROFESOR no inserta tarifas directo",
+    "aprobada": true,
+    "detalle": "-> permission denied for table tarifas_docentes"
+  },
+  {
+    "prueba": "nueva tarifa cierra la anterior (una sola vigente: 45.00)",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "tarifa anterior queda con vigente_hasta = día previo",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "ADMIN no puede definir tarifa a un no-docente",
+    "aprobada": true,
+    "detalle": "-> El beneficiario debe ser un docente"
+  },
+  {
+    "prueba": "tarifa negativa rechazada",
+    "aprobada": true,
+    "detalle": "-> new row for relation \"tarifas_docentes\" violates check constraint \"tarifas_docentes_tarifa_hora_check\""
+  },
+  {
+    "prueba": "PROFESOR ve su tarifa",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "Otro profesor no ve tarifas ajenas",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "monto inconsistente con horas×tarifa rechazado",
+    "aprobada": true,
+    "detalle": "-> new row for relation \"pagos\" violates check constraint \"pagos_monto_horas_check\""
+  },
+  {
+    "prueba": "PROFESOR programa clase de su curso",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "PROFESOR no programa clase en curso ajeno",
+    "aprobada": true,
+    "detalle": "-> new row violates row-level security policy for table \"clases_zoom\""
+  },
+  {
+    "prueba": "duración fuera de rango rechazada",
+    "aprobada": true,
+    "detalle": "-> new row for relation \"clases_zoom\" violates check constraint \"clases_zoom_duracion_minutos_check\""
+  },
+  {
+    "prueba": "anfitrión obtiene start_url por función",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "ESTUDIANTE matriculado ve la clase (join_url)",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "ESTUDIANTE NO puede leer zoom_start_url (permiso de columna)",
+    "aprobada": true,
+    "detalle": "-> permission denied for table clases_zoom"
+  },
+  {
+    "prueba": "ESTUDIANTE no obtiene start_url por función",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "Profesor ajeno no ve la clase",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "ESTUDIANTE no puede modificar clases",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "Triggers de pagos/clases generaron eventos automáticamente",
+    "aprobada": true,
+    "detalle": "(eventos=9)"
+  },
+  {
+    "prueba": "Primer evento enlaza con GENESIS",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "Cada evento enlaza con el hash del anterior",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "Hash SHA-256 tiene 64 hex",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "registrar_evento fija usuario y rol desde el token (no falsificable)",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "authenticated no puede INSERT directo",
+    "aprobada": true,
+    "detalle": "-> permission denied for table eventos_auditoria"
+  },
+  {
+    "prueba": "ADMIN no puede UPDATE (sin privilegio)",
+    "aprobada": true,
+    "detalle": "-> permission denied for table eventos_auditoria"
+  },
+  {
+    "prueba": "ADMIN no puede DELETE (sin privilegio)",
+    "aprobada": true,
+    "detalle": "-> permission denied for table eventos_auditoria"
+  },
+  {
+    "prueba": "Ni el propietario puede UPDATE (trigger append-only)",
+    "aprobada": true,
+    "detalle": "-> eventos_auditoria es de solo inserción: UPDATE no permitido"
+  },
+  {
+    "prueba": "Ni el propietario puede DELETE (trigger append-only)",
+    "aprobada": true,
+    "detalle": "-> eventos_auditoria es de solo inserción: DELETE no permitido"
+  },
+  {
+    "prueba": "TRUNCATE bloqueado",
+    "aprobada": true,
+    "detalle": "-> eventos_auditoria es de solo inserción: TRUNCATE no permitido"
+  },
+  {
+    "prueba": "verificar_cadena_auditoria: cadena íntegra",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "Solo ADMIN verifica la cadena",
+    "aprobada": true,
+    "detalle": "-> Solo el administrador puede verificar la auditoría"
+  },
+  {
+    "prueba": "ESTUDIANTE no lee eventos_auditoria",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "La verificación DETECTA un evento alterado por fuera de la app",
+    "aprobada": true,
+    "detalle": "-> [(2, 'Contenido alterado: hash no coincide')]"
+  },
+  {
+    "prueba": "ESTUDIANTE no puede auto-escalar su rol",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "MARKETING ve publicaciones",
+    "aprobada": true,
+    "detalle": ""
+  },
+  {
+    "prueba": "ESTUDIANTE no ve publicaciones",
+    "aprobada": true,
+    "detalle": ""
+  }
+]

@@ -1,0 +1,60 @@
+{
+  "roles": {
+    "ESTUDIANTE": "Cursa clases, rinde evaluaciones y consulta su progreso",
+    "PROFESOR": "Dicta clases, programa sesiones Zoom y consulta sus pagos",
+    "ADMINISTRADOR": "Gestiona usuarios, cursos, pagos, tarifas y auditoría",
+    "MARKETING": "Planifica y mide publicaciones de Instagram",
+    "EMPRESA": "Empresa cliente: consulta a su personal y registra pagos de docentes"
+  },
+  "permisos": {
+    "usuarios:gestionar": "Gestionar usuarios y roles",
+    "cursos:gestionar": "Gestionar cursos y matrículas",
+    "pagos:listar": "Consultar pagos (según alcance RLS)",
+    "pagos:registrar": "Registrar pagos y adjuntar comprobantes",
+    "pagos:gestionar": "Confirmar o anular pagos",
+    "tarifas:ver": "Consultar tarifas por hora",
+    "tarifas:gestionar": "Definir tarifas por hora de docentes",
+    "zoom:ver": "Ver clases en vivo",
+    "zoom:programar": "Programar y administrar clases Zoom",
+    "auditoria:ver": "Consultar eventos de auditoría",
+    "auditoria:verificar": "Verificar la cadena SHA-256 de auditoría",
+    "marketing:gestionar": "Gestionar publicaciones de marketing",
+    "empresa:portal": "Acceder al portal de empresa cliente",
+    "matriculas:autogestionar": "El estudiante agrega cursos a su cuenta (con pago simulado)"
+  },
+  "roles_permisos": {
+    "ESTUDIANTE": [
+      "zoom:ver",
+      "matriculas:autogestionar"
+    ],
+    "PROFESOR": [
+      "pagos:listar",
+      "tarifas:ver",
+      "zoom:ver",
+      "zoom:programar"
+    ],
+    "ADMINISTRADOR": [
+      "usuarios:gestionar",
+      "cursos:gestionar",
+      "pagos:listar",
+      "pagos:registrar",
+      "pagos:gestionar",
+      "tarifas:ver",
+      "tarifas:gestionar",
+      "zoom:ver",
+      "zoom:programar",
+      "auditoria:ver",
+      "auditoria:verificar",
+      "marketing:gestionar"
+    ],
+    "MARKETING": [
+      "marketing:gestionar"
+    ],
+    "EMPRESA": [
+      "empresa:portal",
+      "pagos:listar",
+      "pagos:registrar",
+      "tarifas:ver"
+    ]
+  }
+}
