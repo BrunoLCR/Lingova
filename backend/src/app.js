@@ -25,7 +25,11 @@ export function createApp({ env = defaultEnv, supabaseFactory = defaultSupabaseF
 
   app.use('/api', createRoutes({ supabaseFactory, zoomConfig: env.ZOOM, zoomClient }))
 
-  app.use((_req, res) => res.status(404).json({ error: 'Ruta no encontrada.' }))
+  app.use((req, res) => {
+    const ruta = req.originalUrl.split('?')[0].slice(0, 120)
+    const pista = ruta.startsWith('/api/api/') ? 'La URL repite /api. Revisa VITE_API_URL: debe ser la base del servidor, sin "/api" al final.' : undefined
+    res.status(404).json({ error: 'Ruta no encontrada.', metodo: req.method, ruta, ...(pista ? { pista } : {}) })
+  })
 
   // Manejo centralizado de errores (no filtra detalles internos)
   // eslint-disable-next-line no-unused-vars

@@ -7,6 +7,7 @@ import * as student from '../controllers/studentController.js'
 import * as tar from '../controllers/tarifaController.js'
 import * as audit from '../controllers/auditController.js'
 import { createZoomController } from '../controllers/zoomController.js'
+import { HttpError } from '../utils/httpError.js'
 
 export function createRoutes({ supabaseFactory, zoomConfig, zoomClient }) {
   const router = Router()
@@ -18,6 +19,21 @@ export function createRoutes({ supabaseFactory, zoomConfig, zoomClient }) {
 
   // Sesión
   router.get('/me', authenticated, dash.me)
+
+  // Dashboard general: detecta el rol del usuario autenticado y responde con SU dashboard.
+  // Nunca devuelve el de otro rol (se decide por req.profile.role, no por parámetros del cliente).
+  const dashboardPorRol = {
+    ESTUDIANTE: student.studentDashboard,
+    PROFESOR: dash.professorDashboard,
+    ADMINISTRADOR: dash.adminDashboard,
+    MARKETING: dash.marketingDashboard,
+    EMPRESA: dash.empresaDashboard
+  }
+  router.get('/dashboard', authenticated, async (req, res) => {
+    const handler = dashboardPorRol[req.profile.role]
+    if (!handler) throw new HttpError(403, 'Tu rol no tiene un dashboard asignado.')
+    await handler(req, res)
+  })
 
   // Dashboards por rol (RBAC)
   router.get('/student/dashboard', guard('ESTUDIANTE'), student.studentDashboard)
